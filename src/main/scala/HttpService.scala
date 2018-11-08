@@ -6,4 +6,11 @@ class HttpService {
       .headers(headers)
       .asString
       .body
+
+  def postRequest(url: String, headers: Seq[(String, String)], body: String): String =
+    Http(url)
+      .headers(headers)
+      .postData(body)
+      .asString
+      .body
 }

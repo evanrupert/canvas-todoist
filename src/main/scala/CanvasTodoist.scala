@@ -7,8 +7,8 @@ object CanvasTodoist {
 
   def main(args: Array[String]): Unit = {
     // TODO: Look into ways to differentiate between assignments and events
-    // TODO: Difference between taskDate and dueDate should be proportional to how far in the future the assignment is
-    // TODO: Refactor Task and assignment to be the same class
+    // TODO: Write additional test suites
+    // TODO: Setup sbt to have tasks for running main and running tests
     val assignments = Entries.filterNew(canvasService.upcomingAssignments)
     assignments.foreach(todoistService.createTask)
   }

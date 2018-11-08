@@ -2,6 +2,7 @@ import models.Assignment
 import org.joda.time.DateTime
 import org.scalatest.FunSuite
 import org.scalamock.scalatest.MockFactory
+
 class CanvasServiceTest extends FunSuite with MockFactory {
   private val json =
     """
@@ -22,7 +23,6 @@ class CanvasServiceTest extends FunSuite with MockFactory {
 
   test("Canvas.upcomingAssignments should properly parse the json and return assignment instancees") {
     val httpServiceStub = stub[HttpService]
-
     val canvasService = new CanvasService(httpServiceStub)
 
     (httpServiceStub.request _)
@@ -31,8 +31,6 @@ class CanvasServiceTest extends FunSuite with MockFactory {
       .returns(json)
 
     val results = canvasService.upcomingAssignments
-
-    println(results.head.date)
 
     assert(expectedAssignments.head.content.equals(results.head.content))
     assert(expectedAssignments.head.date.equals(results.head.date))
