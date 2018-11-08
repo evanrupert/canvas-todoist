@@ -17,7 +17,7 @@ class CanvasServiceTest extends FunSuite with MockFactory {
       | ]
     """.stripMargin
 
-  private val expectedDate = new DateTime(2018, 11, 13, 4, 59, 0)
+  private val expectedDate = new DateTime(2018, 11, 12, 23, 59, 0)
   private val expectedAssignments = List(new Assignment("Math Chapter 3", expectedDate))
 
   test("Canvas.upcomingAssignments should properly parse the json and return assignment instancees") {
@@ -27,10 +27,12 @@ class CanvasServiceTest extends FunSuite with MockFactory {
 
     (httpServiceStub.request _)
       .when("https://webcourses.ucf.edu/api/v1/users/self/upcoming_events",
-            Seq(("Authorization", "Bearer ")))
+            Seq(("Authorization", "Bearer " + Credentials.canvasToken)))
       .returns(json)
 
     val results = canvasService.upcomingAssignments
+
+    println(results.head.date)
 
     assert(expectedAssignments.head.content.equals(results.head.content))
     assert(expectedAssignments.head.date.equals(results.head.date))
