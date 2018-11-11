@@ -1,12 +1,12 @@
 import models.Task
 import org.joda.time.{DateTime, DateTimeUtils}
-import org.scalatest.FunSuite
+import org.scalatest.FlatSpec
 import org.scalamock.scalatest.MockFactory
 
-class EntriesTest extends FunSuite with MockFactory {
+class EntriesTest extends FlatSpec with MockFactory {
   private val today = new DateTime(2018, 11, 15, 0, 0, 0)
 
-  test("filterNew filters out all entries that are already in todoist") {
+  "filterNew" should "filter out all entries that are already in todoist" in {
     val assignmentsToBeAdded = List(
       new Task("Walk Dogs", today.plusDays(5)),
       new Task("Clean House", today.plusDays(7))

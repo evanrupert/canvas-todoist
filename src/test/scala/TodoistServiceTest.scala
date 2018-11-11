@@ -1,9 +1,9 @@
 import models.Assignment
 import org.joda.time.{DateTime, DateTimeUtils}
-import org.scalatest.FunSuite
+import org.scalatest.FlatSpec
 import org.scalamock.scalatest.MockFactory
 
-class TodoistServiceTest extends FunSuite with MockFactory {
+class TodoistServiceTest extends FlatSpec with MockFactory {
   private val tasksGetJson =
     """
       | [
@@ -40,7 +40,7 @@ class TodoistServiceTest extends FunSuite with MockFactory {
 
   private val today = new DateTime(2018, 11, 15, 0, 0, 0)
 
-  test("todoistService properly parses tasks json into tasks list") {
+  "todoistService" should "parse tasks json into tasks list" in {
     val httpServiceStub = stub[HttpService]
     val todoistService = new TodoistService(httpServiceStub)
 
@@ -57,7 +57,7 @@ class TodoistServiceTest extends FunSuite with MockFactory {
     assert(results(1).date.equals(new DateTime(2018, 11, 20, 0, 0, 0)))
   }
 
-  test("todoistService properly sends POST request to create new task") {
+  "todoistService" should "send POST request to create a new task" in {
     val httpServiceMock = mock[HttpService]
     val todoistService = new TodoistService(httpServiceMock)
 
