@@ -8,22 +8,26 @@ class EntriesTest extends FlatSpec with MockFactory {
 
   "filterNew" should "filter out all entries that are already in todoist" in {
     val assignmentsToBeAdded = List(
-      new Task("Walk Dogs", today.plusDays(5)),
-      new Task("Clean House", today.plusDays(7))
+      new Task("Duplicate Task", today.plusDays(5)),
+      new Task("Duplicate Future Task", today.plusDays(7)),
+      new Task("Today Task", today),
+      new Task("Duplicate Past Task", today.minusDays(1))
     )
 
     val entries = Entries(new TodoistService(new HttpService()) {
       override def tasks: List[Task] = List(
-        new Task("Walk Dogs", today.plusDays(2)),
-        new Task("Feed Cats", today.plusDays(3)),
-        new Task("Clean House", today.plusDays(10))
+        new Task("Duplicate Task", today.plusDays(2)),
+        new Task("Duplicate Future Task", today.plusDays(10)),
+        new Task("Today Task", today),
+        new Task("Duplicate Past Task", today.minusDays(1))
       )
     })
 
     DateTimeUtils.setCurrentMillisFixed(today.getMillis)
     val results = entries.filterNew(assignmentsToBeAdded).map { t => t.content }
 
-    assert(results.size == 1)
-    assert(results.head == "Clean House")
+    assert(results.size == 2)
+    assert(results.head == "Duplicate Future Task")
+    assert(results(1) == "Duplicate Past Task")
   }
 }
