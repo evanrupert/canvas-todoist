@@ -7,10 +7,16 @@ object Credentials {
     "./data/credentials.json"
 
   def canvasToken: String =
-    credentialsFileJson("CANVAS_TOKEN").as[String]
+    sys.env.get("CANVAS_TOKEN") match {
+      case Some(x) => x
+      case None => credentialsFileJson("CANVAS_TOKEN").as[String]
+    }
 
   def todoistToken: String =
-    credentialsFileJson("TODOIST_TOKEN").as[String]
+    sys.env.get("TODOIST_TOKEN") match {
+      case Some(x) => x
+      case None => credentialsFileJson("TODOIST_TOKEN").as[String]
+    }
 
   def credentialsFileJson: JsValue = {
     val source = Source.fromFile(CREDENTIALS_FILE_PATH)

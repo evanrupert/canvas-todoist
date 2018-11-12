@@ -1,0 +1,12 @@
+{
+  "scriptFile": "CanvasTodoist.jar",
+  "entryPoint": "CanvasTodoist.run",
+  "bindings": [
+    {
+      "type": "timerTrigger",
+      "name": "canvasTodoistTrigger",
+      "direction": "in",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}

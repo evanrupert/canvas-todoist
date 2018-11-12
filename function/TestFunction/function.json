@@ -1,0 +1,22 @@
+{
+  "scriptFile": "TestFunction.jar",
+  "entryPoint": "CanvasTodoist.testFunction",
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "name": "req",
+      "webHookType": "NONE",
+      "direction": "in",
+      "authLevel": "anonymous",
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "type": "http",
+      "name": "$return",
+      "direction": "out"
+    }
+  ]
+}

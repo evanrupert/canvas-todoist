@@ -2,3 +2,8 @@
 **/target/
 /data/
 
+*.jar
+
+/lib_managed/
+
+/function/local.settings.json

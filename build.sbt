@@ -24,3 +24,18 @@ libraryDependencies += "com.softwaremill.macwire" %% "macros" % "2.3.1" % "provi
 libraryDependencies += "com.softwaremill.macwire" %% "macrosakka" % "2.3.1" % "provided"
 libraryDependencies += "com.softwaremill.macwire" %% "util" % "2.3.1"
 libraryDependencies += "com.softwaremill.macwire" %% "proxy" % "2.3.1"
+
+javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xlint")
+
+lazy val root = (project in file(".")).settings(
+  name := "canvas-service-lambda",
+  version := "1.0",
+  scalaVersion := "2.12.7",
+  retrieveManaged := true,
+  libraryDependencies += "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.0.0-beta-5"
+)
+
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case x => MergeStrategy.first
+}
