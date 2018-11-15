@@ -10,7 +10,8 @@ object CanvasTodoist {
   lazy private val todoistService = wire[TodoistService]
 
   @FunctionName("CanvasTodoist")
-  def run(@TimerTrigger(name = "canvasTodoistTrigger", schedule = "0 0 * * *") timerInfo: String, context: ExecutionContext): Unit = {
+  def run(@TimerTrigger(name = "canvasTodoistTrigger", schedule = "0 0 0 * * *") timerInfo: String, context: ExecutionContext): Unit = {
+    println("Executing CanvasTodoist script...")
     val assignments = Entries(todoistService).filterNew(canvasService.upcomingAssignments)
     assignments.foreach(todoistService.createTask)
   }
